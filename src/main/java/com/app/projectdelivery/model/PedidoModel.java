@@ -4,19 +4,21 @@ import com.app.projectdelivery.jpa.BaseModel;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import java.util.Date;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import java.util.List;
 
-@Entity( name = "pedido" )
+@Entity
+@Table( name = "pedido" )
 @Getter
 @Setter
 public class PedidoModel extends BaseModel
 {
-    private int numero;
-    private Date data;
-    private String name;
-    private Float valor;
-    private Float valor_total;
-    private int quantidade;
-    private int codigo_cliente;
+    private float valorTotal;
+
+    @OneToMany( mappedBy = "pedido", cascade = CascadeType.ALL, orphanRemoval = true )
+    private List<ProdutosPedidoModel> produtosPedidos;
+
 }
